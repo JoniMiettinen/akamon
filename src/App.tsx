@@ -17,18 +17,35 @@ const App: React.FC = () => {
   const [averagePrice, setAveragePrice] = useState<number>(0);
   const [cheapestPrice, setCheapestPrice] = useState<number>(0);
   const [mostExpensivePrice, setMostExpensivePrice] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  enum Unit {
+    PricePerKWh = 'snt/kWh',
+  }
 
   useEffect(() => {
-    fetch('/data.json')
-      .then(response => response.json())
-      .then(data => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/data.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data: DataItem[] = await response.json();
         const convertedData = data.map((item: DataItem) => ({
           ...item,
           price: item.price * 0.1 * 1.24,
-          unit: 'snt/kWh'
+          unit: Unit.PricePerKWh, // vältellään kirjotusvirheitä
         }));
         setData(convertedData);
-      });
+      } catch (error: any) {
+        console.error('Failed to fetch data:', error);
+        setError(error.message || 'An unknown error occurred.');
+        setData([]);
+      }
+    };
+  
+    fetchData();
   }, []);
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +89,7 @@ const App: React.FC = () => {
       />
       <button onClick={handleFilter}>Hae</button>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '20px 0' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'stretch', marginBottom: '20px', padding: '10px', borderRadius: '5px', width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', alignItems: 'stretch', marginBottom: '20px', padding: '10px', borderRadius: '5px', width: '100%' }}>
           <div style={{ flex: '0 1 200px', textAlign: 'center', margin: '0 10px', backgroundColor: 'lightgrey', padding: '10px', borderRadius: '5px', minHeight: '100px', justifyContent: 'center' }}>
             <p><strong>Halvin tunti {cheapestHour}</strong></p>
             <p>{cheapestPrice.toFixed(2)} snt/kWh</p>
@@ -86,8 +103,13 @@ const App: React.FC = () => {
             <p>{averagePrice.toFixed(2)} snt/kWh</p>
           </div>
         </div>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+          <div style={{ width: '30px', height: '15px', backgroundColor: 'rgba(246, 148, 148, 0.5)', border: '2px solid rgba(250, 90, 90, 0.5)', marginRight: '10px' }}>
+          </div>
+          <span>Hinnat snt/kWh</span>
+        </div>
         {filteredData.length > 0 ? (
-          <ResponsiveContainer width="60%" height={600}>
+          <ResponsiveContainer width="90%" height={600}>
             <BarChart
               data={filteredData}
               margin={{
@@ -96,10 +118,10 @@ const App: React.FC = () => {
               barCategoryGap="20%"
               barGap="2">
               <CartesianGrid strokeDasharray="0" />
-              <XAxis dataKey="timestamp" tickFormatter={formatXAxis} />
-              <YAxis label={{ value: 'Price (snt/kWh)', angle: -90, position: 'insideLeft' }} />
+              <XAxis dataKey="timestamp" tickFormatter={formatXAxis} tickCount={10} />
+              <YAxis label={{ value: '', angle: -90, position: 'insideLeft' }} tickCount={10} />
               <Tooltip />
-              <Legend />
+              {/* <Legend /> */}
               <Bar dataKey="price" fill="rgba(246, 148, 148, 0.5)" stroke="rgba(250, 90, 90, 0.5)" strokeWidth={2} />
             </BarChart>
           </ResponsiveContainer>
