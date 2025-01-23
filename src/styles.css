@@ -1,0 +1,17 @@
+.statsBox {
+    flex: 0 1 200px;
+    text-align: center;
+    margin: 0 10px;
+    background-color: lightgrey;
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 100px;
+    justify-content: center;
+  }
+  
+  @media (max-width: 768px) {
+    .statsBox {
+      flex: 1 1 100%;
+      margin: 10px 0;
+    }
+  }

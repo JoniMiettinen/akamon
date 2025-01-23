@@ -1,46 +1,7 @@
-# Getting Started with Create React App
+# Kuvaus
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Suurin haaste tehtävää tehdessä ilmeni jo projektin alkuvaiheessa. npx create-react-app aiheutti dependency-virheen, koska React versio 19 ei ollut yhteensopiva @testing-library/react@13.4.0 -kirjaston kanssa. Yritin ratkaista ongelmaa useilla tavoilla, ja tähän sain tuhraantumaan useamman tunnin. Lopulta ongelma ratkesi, kun aloitin projektin uudelleen yarnilla, joka asensi vanhemman version testing-kirjastosta, ja näin virhettä ei tullut.
 
-## Available Scripts
+Peruspalikat ja toiminnalisuudet sain toimimaan suhteellisen nopeasti, ja suurin osa ajasta kuluikin ulkoasun hieromiseen sekä datan validointiin. Recharts-kirjasto, jota käytin kaavion tekemiseen oli minulle uusi tuttavuus, joten sen kanssa sain jonkin verran kulumaan aikaa. Pyrin myös kirjoittamaan koodista siistiä ja mahdollisimman uudelleenkäytettävää.
 
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Tehtävää tehdessä oli tekoälystä paljon apua ja se nopeuttikin toteuttamista erittäin paljon. Sanoisin että käytin tehtävään kaikkineen noin 10-12 tuntia aikaa.
